@@ -59,3 +59,10 @@ Check the checkboxCallback ->  //Callback
 AddTaskScreen -> Adding tasks to the list
 Moving the state up so now the tasks is moved to tasks_screen
 Add a new callback
+//////////////////////
+
+
+The Problem.
+Lots of StatefulWidget, moving data back up the tree, rebuild happens all the time, and unnecessary callbacks
+
+
