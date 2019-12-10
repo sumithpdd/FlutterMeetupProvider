@@ -112,6 +112,22 @@ int get taskCount {
     return _tasks.length;
 }
 /////////////////
+Lets Make AddTask work -
+1. in the add_task_screen , remove the callback and use provider
+eg.
+ onPressed: () { 
+                Provider.of<TaskData>(context).addTask(newTaskTitle);
+                Navigator.pop(context);}
+and
+use notifyListeners for UI to get the updates 
+
+ void addTask(String newTaskTitle) {
+    final task = Task(name: newTaskTitle);
+    _tasks.add(task);
+    notifyListeners();
+  }
+
+Note: reason we are using _tasks private property is to make sure methods are used to update or get tasks.
 
 
 

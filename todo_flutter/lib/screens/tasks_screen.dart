@@ -5,20 +5,6 @@ import 'package:todo_flutter/screens/add_task_screen.dart';
 import 'package:todo_flutter/widgets/tasks_list.dart';
 
 class TasksScreen extends StatelessWidget {
-   
-  Widget buildBottomSheet(BuildContext context) {
-    return AddTaskScreen(addTaskCallback: (newTaskTitle) {
-      //use setstate to update the UI
-     // setState(() {
-        //Adding task to the existing list of tasks
-        // tasks.add(Task(name: newTaskTitle));
-    //  });
-
-      //Closing the bottom modal screen
-      Navigator.pop(context);
-    });
-  }
- 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +12,8 @@ class TasksScreen extends StatelessWidget {
         backgroundColor: Theme.of(context).accentColor,
         child: Icon(Icons.add),
         onPressed: () {
-          showModalBottomSheet(context: context, builder: buildBottomSheet);
+          showModalBottomSheet(
+              context: context, builder: (context) => AddTaskScreen());
         },
       ),
       backgroundColor: Colors.lightBlueAccent,
@@ -59,7 +46,7 @@ class TasksScreen extends StatelessWidget {
                       fontWeight: FontWeight.w700),
                 ),
                 Text(
-                  '${Provider.of<TaskData>(context).tasks.length} Tasks',
+                  '${Provider.of<TaskData>(context).taskCount} Tasks',
                   style: TextStyle(color: Colors.white, fontSize: 18),
                 ),
               ],
