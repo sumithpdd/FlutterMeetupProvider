@@ -64,5 +64,139 @@ Add a new callback
 
 The Problem.
 Lots of StatefulWidget, moving data back up the tree, rebuild happens all the time, and unnecessary callbacks
+/////////////////////
+Use Provider package
+In the TasksScreen Listen to the changes
+In the TasksList widget listen to the changes
+
+Use ChangeNotifier Provider
+
+1. https://pub.dev/ search for provider
+dependencies:
+  provider: ^3.2.0
+
+Update pubspec.yaml
+2. Create a new file task_data.dart in models folder
+TaskData class should extend ChangeNotifier
+import task.dart
+and bring the code that creates tasks from tasks_screen
+
+3. in main.dart wrap Materialapp with ChangeNotifierProvider
+add the builder: (context) => TaskData(),
+	ignore the warning
+4. Fix task_screen where there is reference to tasks
+CLUE : Provider.of<TaskData>(context).tasks
+and comment // tasks.add(Task(name: newTaskTitle));
+5. Fix TasksList that points to tasks_list screen - use provider , no need to pass task in constructor
+CLUE instead of widget use Provider.of<TaskData>(context).tasks
+
+Both TasksScreen and TaskList doesnot need to be stateful now, convert it to stateless
+comment out setstate calls in both will fix later
+for eg. in checkboxCallback 
+  // setState(() {
+  //   Provider.of<TaskData>(context).tasks[index].toggleDone();
+  // });
+
+Run to check it works
+//////////////////
+
+Reafactor to use Consumer
+1. Best place is tasks_screen wrap ListView with consumer.
+   Consumer<TaskData>(
+      builder: (context, taskData, child) {
+        ListView.builder(......
+		
+2. Improve repetitive code. like length
+modify TaskData to hold a getter for taskcount
+int get taskCount {
+    return _tasks.length;
+}
+/////////////////
+Lets Make AddTask work -
+1. in the add_task_screen , remove the callback and use provider
+eg.
+ onPressed: () { 
+                Provider.of<TaskData>(context).addTask(newTaskTitle);
+                Navigator.pop(context);}
+and
+use notifyListeners for UI to get the updates 
+
+ void addTask(String newTaskTitle) {
+    final task = Task(name: newTaskTitle);
+    _tasks.add(task);
+    notifyListeners();
+  }
+
+Note: reason we are using _tasks private property is to make sure methods are used to update or get tasks.
+
+2. Now implement checkbox toggle, 
+add new method to TaskData
+void updateTask(Task task) {
+    task.toggleDone();
+    notifyListeners();
+  }
+ 
+Note: always notifyListeners
+
+3. Add this to the callback function in TasksList
+/Callback
+    checkboxCallback: (checkboxState) {
+        taskData.updateTask(task);
+    }
+
+////////////////////////
+Delete an Item using Provider.
+add a method to task_data.dart
+
+void deleteTask(String taskId) {
+    _tasks.removeWhere((task)=> task.id ==taskId);
+    notifyListeners();
+  }
+
+Just for exploration, I am using Dismissable widget
+update task_tile
+Dismissible(
+        key: ValueKey(task.id),
+        background: Container(
+          color: Theme.of(context).errorColor,
+          child: Icon(
+            Icons.delete,
+            color: Colors.white,
+            size: 40,
+          ),
+          alignment: Alignment.centerRight,
+          padding: EdgeInsets.only(right: 20),
+          margin: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+        ),
+        direction: DismissDirection.endToStart,
+        confirmDismiss: (direction) {
+          return showDialog(
+            context: context,
+            builder: (ctx) => AlertDialog(
+              title: Text('Are you sure?'),
+              content: Text('Do you want to remove the task?'),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('No'),
+                  onPressed: () {
+                    Navigator.of(ctx).pop(false);
+                  },
+                ),
+                FlatButton(
+                  child: Text('Yes'),
+                  onPressed: () {
+                    Navigator.of(ctx).pop(true);
+                  },
+                )
+              ],
+            ),
+          );
+        },
+        onDismissed: (direction) {
+          Provider.of<TaskData>(context, listen: false).deleteTask(task.id);
+          Scaffold.of(context).showSnackBar(new SnackBar(
+            content: new Text('${task.name} is deleted'),
+          ));
+        },
 
 
