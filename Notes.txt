@@ -64,5 +64,41 @@ Add a new callback
 
 The Problem.
 Lots of StatefulWidget, moving data back up the tree, rebuild happens all the time, and unnecessary callbacks
+/////////////////////
+Use Provider package
+In the TasksScreen Listen to the changes
+In the TasksList widget listen to the changes
+
+Use ChangeNotifier Provider
+
+1. https://pub.dev/ search for provider
+dependencies:
+  provider: ^3.2.0
+
+Update pubspec.yaml
+2. Create a new file task_data.dart in models folder
+TaskData class should extend ChangeNotifier
+import task.dart
+and bring the code that creates tasks from tasks_screen
+
+3. in main.dart wrap Materialapp with ChangeNotifierProvider
+add the builder: (context) => TaskData(),
+	ignore the warning
+4. Fix task_screen where there is reference to tasks
+CLUE : Provider.of<TaskData>(context).tasks
+and comment // tasks.add(Task(name: newTaskTitle));
+5. Fix TasksList that points to tasks_list screen - use provider , no need to pass task in constructor
+CLUE instead of widget use Provider.of<TaskData>(context).tasks
+
+TaskList doesnot need to be stateful now, convert it to stateless
+comment out setstate in checkboxCallback will fix later
+  // setState(() {
+  //   Provider.of<TaskData>(context).tasks[index].toggleDone();
+  // });
+
+
+
+
+
 
 
