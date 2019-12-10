@@ -90,13 +90,28 @@ and comment // tasks.add(Task(name: newTaskTitle));
 5. Fix TasksList that points to tasks_list screen - use provider , no need to pass task in constructor
 CLUE instead of widget use Provider.of<TaskData>(context).tasks
 
-TaskList doesnot need to be stateful now, convert it to stateless
-comment out setstate in checkboxCallback will fix later
+Both TasksScreen and TaskList doesnot need to be stateful now, convert it to stateless
+comment out setstate calls in both will fix later
+for eg. in checkboxCallback 
   // setState(() {
   //   Provider.of<TaskData>(context).tasks[index].toggleDone();
   // });
 
+Run to check it works
+//////////////////
 
+Reafactor to use Consumer
+1. Best place is tasks_screen wrap ListView with consumer.
+   Consumer<TaskData>(
+      builder: (context, taskData, child) {
+        ListView.builder(......
+		
+2. Improve repetitive code. like length
+modify TaskData to hold a getter for taskcount
+int get taskCount {
+    return _tasks.length;
+}
+/////////////////
 
 
 
