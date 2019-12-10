@@ -21,3 +21,10 @@ In the AddTaskScreen we can see textfield, Addbutton and the BoxDecoration for c
 ///////////////////////////////////////
 
 4. Flutter run
+
+
+/////////////
+StateManagement
+
+TaskCheckBox as StatefulWidget as it has to react to user input and change its state.
+
