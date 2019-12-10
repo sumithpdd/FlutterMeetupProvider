@@ -55,3 +55,7 @@ Now we make the app more dynamic,
 'models' Folder
 use ListView.builder as its performant and can expand on demand.
 Check the checkboxCallback ->  //Callback
+
+AddTaskScreen -> Adding tasks to the list
+Moving the state up so now the tasks is moved to tasks_screen
+Add a new callback
