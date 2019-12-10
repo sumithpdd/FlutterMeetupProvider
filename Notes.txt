@@ -129,6 +129,21 @@ use notifyListeners for UI to get the updates
 
 Note: reason we are using _tasks private property is to make sure methods are used to update or get tasks.
 
+2. Now implement checkbox toggle, 
+add new method to TaskData
+void updateTask(Task task) {
+    task.toggleDone();
+    notifyListeners();
+  }
+ 
+Note: always notifyListeners
+
+3. Add this to the callback function in TasksList
+/Callback
+    checkboxCallback: (checkboxState) {
+        taskData.updateTask(task);
+    }
+
 
 
 
