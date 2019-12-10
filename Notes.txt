@@ -1,0 +1,13 @@
+Demo
+
+main.dart -> is a Materialapp -> TasksScreen
+In the Screens folder -> TasksScreen which is a stateless widget
+it returns a Scaffold -> notice CircleAvatar -> also notice color: Theme.of(context).accentColor
+notice the other container => boxDecoration and we enclosed he container in an Expanded widget to take it all the avilable spacce
+
+widgets folder - Task List and Task Tile -> widgets from existing widgets List View and ListTile
+
+Look at the FloatingActionButton thats has the add buttton -> showModalBottomSheet
+
+In the AddTaskScreen we can see textfield, Addbutton and the BoxDecoration for container
+////////////////////////////////////////
