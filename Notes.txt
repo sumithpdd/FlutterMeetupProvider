@@ -1,13 +1,23 @@
 Demo
+----
+Create an app with 
+1. flutter create todo_flutter
+2. cd .\todo_flutter\
+3. code .
+This is a working version of the layout.
+So just show how its layed out and built
 
 main.dart -> is a Materialapp -> TasksScreen
-In the Screens folder -> TasksScreen which is a stateless widget
-it returns a Scaffold -> notice CircleAvatar -> also notice color: Theme.of(context).accentColor
-notice the other container => boxDecoration and we enclosed he container in an Expanded widget to take it all the avilable spacce
 
-widgets folder - Task List and Task Tile -> widgets from existing widgets List View and ListTile
+In the 'screens' folder -> TasksScreen which is a stateless widget
+it returns a Scaffold -> notice CircleAvatar -> also notice color: Theme.of(context).accentColor
+Notice the other container => boxDecoration and we enclosed he container in an Expanded widget to take it all the avilable spacce
+
+'widgets' folder - Task List and Task Tile -> widgets from existing widgets List View and ListTile
 
 Look at the FloatingActionButton thats has the add buttton -> showModalBottomSheet
 
 In the AddTaskScreen we can see textfield, Addbutton and the BoxDecoration for container
-////////////////////////////////////////
+///////////////////////////////////////
+
+4. Flutter run
