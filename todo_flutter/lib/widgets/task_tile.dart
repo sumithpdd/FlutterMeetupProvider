@@ -6,7 +6,7 @@ class TaskTile extends StatefulWidget {
 }
 
 class _TaskTileState extends State<TaskTile> {
-  bool isChecked = true;
+  bool isChecked = false;
   //Callback
   void checkBoxCallBack(bool checkboxState) {
     setState(() {
@@ -40,7 +40,7 @@ class TaskCheckBox extends StatelessWidget {
     return Checkbox(
       activeColor: Theme.of(context).accentColor,
       value: checkboxState,
-      onChanged: (bool newValue) {},
+      onChanged: toggleCheckBoxState,
     );
   }
 }
